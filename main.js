@@ -111,11 +111,15 @@ function removeItemCart(nameRemove){
 
         if (item.qtd > 1){ // SE A QUANTIDADE FOR MAIOR QUE 1 
             item.qtd = item.qtd -1 // SUBTRAI A QUANTIDADE
+            counter -= 1;
+            cartCounter.innerHTML = counter;
             updateCartModal(); // ATUALIZA O CARRINHO COM FOREACH
             return; // SE A CONDIÇÃO FOR VERDADEIRA, ENCERRA A FUNCAO.
         }
         cart.splice(index, 1) // REMOVE O OBJETO DO ARRAY COM O SPLICE 
         updateCartModal(); // ATUALIZA O CARRINHO COM FOREACH
+        counter -= 1;
+        cartCounter.innerHTML = counter;
     }
 }
 
@@ -153,7 +157,21 @@ checkOutBtn.addEventListener('click', function(){
         return;
     } 
     else if(cart.length === 0 ){ // SE O CARRINHO FOR VAZIO
-        return; // ENCERRA A FUNCAO
+        Toastify({
+            text: "Carrinho vazio",
+            duration: 3000,
+            // destination: "https://github.com/apvarun/toastify-js", // REDIRECT
+            // newWindow: true, // NOVA PAG
+            close: true, // PODE FECHAR
+            gravity: "top", // `top` or `bottom`
+            position: "right", // `left`, `center` or `left`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+            background: "#ef4444",
+            },
+            // onClick: function(){} // Callback after click
+        }).showToast(); // EXIBE O ALERTA ACIMA
+        return;
     } 
     else if(addressInput.value === ""){ // SE O VALOR DO INPUT FOR VAZIO
         addressWarn.classList.remove('hidden') // ADICIONA A CLASSE 
